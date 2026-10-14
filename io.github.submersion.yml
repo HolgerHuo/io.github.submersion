@@ -63,8 +63,8 @@ modules:
       - install -Dm644 bundle/60-submersion-divecomputers.rules /app/share/io.github.submersion/60-submersion-divecomputers.rules
     sources:
       - type: archive
-        url: https://github.com/submersion-app/submersion/releases/download/v1.8.1.8710/Submersion-v1.8.1.8710-Linux.tar.gz
-        sha256: 44de36e9d49888760cd3172a417a8c3abdd6ef63e43508cd3f8f5c17aa422c4f
+        url: https://github.com/submersion-app/submersion/releases/download/v1.8.2.8916/Submersion-v1.8.2.8916-Linux.tar.gz
+        sha256: 4a69e0472ac9e89ee380d98752b8e37af562661c89b2778c82e616e651e5a5a6
         strip-components: 0
         dest: bundle
         only-arches:
@@ -83,6 +83,6 @@ modules:
       - type: file
         path: icons/io.github.submersion-512.png
       - type: file
-        url: https://raw.githubusercontent.com/submersion-app/submersion/fe171bab2cb22f92eefb39975e5558f087831ade/LICENSE
+        url: https://raw.githubusercontent.com/submersion-app/submersion/29cb32cd9ee21bd36df1a8d004eda448d2cc894e/LICENSE
         sha256: 7d2c809f770ef01e920d9bace4d0c99ccbc7eb983baa46a9394406a66455b732
         dest-filename: COPYING
