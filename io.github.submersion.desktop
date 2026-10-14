@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Submersion
+GenericName=Dive Log
+Comment=Log scuba dives and explore dive profiles
+Exec=submersion %U
+Icon=io.github.submersion
+Terminal=false
+Categories=Science;Sports;
+Keywords=dive;diving;scuba;divelog;logbook;
+MimeType=x-scheme-handler/submersion;
+StartupWMClass=app.submersion

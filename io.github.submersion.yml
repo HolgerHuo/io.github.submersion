@@ -1,0 +1,88 @@
+app-id: io.github.submersion
+runtime: org.gnome.Platform
+runtime-version: '51'
+sdk: org.gnome.Sdk
+command: submersion
+separate-locales: false
+
+finish-args:
+  - --env=LD_LIBRARY_PATH=/app/lib/submersion/lib
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  # Flutter rendering and WebKit's accelerated compositing.
+  # Direct hidraw and serial access also requires all devices: the upstream
+  # dive-computer plugin does not implement the USB portal.
+  - --device=all
+  - --share=network
+  # WebKit audio and printing.
+  - --socket=pulseaudio
+  - --socket=cups
+  - --persist=Submersion
+  # flutter_secure_storage uses the desktop Secret Service.
+  - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.freedesktop.Notifications
+  - --system-talk-name=org.freedesktop.NetworkManager
+  - --system-talk-name=org.bluez
+
+modules:
+  - name: ffmpegthumbnailer
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DENABLE_TESTS=OFF
+      - -DENABLE_SHARED=OFF
+      - -DENABLE_STATIC=ON
+      - -DENABLE_THUMBNAILER=OFF
+      - -DENABLE_AUDIO_THUMBNAILER=OFF
+    cleanup:
+      - /include
+      - /lib/*.a
+      - /lib/pkgconfig
+      - /share/man
+    sources:
+      - type: git
+        url: https://github.com/dirkvdb/ffmpegthumbnailer.git
+        tag: v2.3.1
+        commit: 75828029fa93c604a758be01a523377b3392187e
+  - name: submersion
+    buildsystem: simple
+    only-arches:
+      - x86_64
+    build-commands:
+      - install -Dm755 bundle/submersion /app/lib/submersion/submersion
+      - cp -a bundle/lib bundle/data /app/lib/submersion/
+      - mkdir -p /app/bin
+      - ln -s /app/lib/submersion/submersion /app/bin/submersion
+      - install -Dm644 io.github.submersion.desktop /app/share/applications/io.github.submersion.desktop
+      - install -Dm644 io.github.submersion.metainfo.xml /app/share/metainfo/io.github.submersion.metainfo.xml
+      - install -Dm644 io.github.submersion-128.png /app/share/icons/hicolor/128x128/apps/io.github.submersion.png
+      - install -Dm644 io.github.submersion-512.png /app/share/icons/hicolor/512x512/apps/io.github.submersion.png
+      - install -Dm644 COPYING /app/share/licenses/io.github.submersion/COPYING
+      # Flatpak cannot install effective host udev rules. Keep the exact
+      # upstream rules available for a separate, explicit host installation.
+      - install -Dm644 bundle/60-submersion-divecomputers.rules /app/share/io.github.submersion/60-submersion-divecomputers.rules
+    sources:
+      - type: archive
+        url: https://github.com/submersion-app/submersion/releases/download/v1.8.1.8710/Submersion-v1.8.1.8710-Linux.tar.gz
+        sha256: 44de36e9d49888760cd3172a417a8c3abdd6ef63e43508cd3f8f5c17aa422c4f
+        strip-components: 0
+        dest: bundle
+        only-arches:
+          - x86_64
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/submersion-app/submersion/releases/latest
+          version-query: .tag_name | sub("^v"; "")
+          url-query: . as $release | .assets[] | select(.name == ("Submersion-" + $release.tag_name + "-Linux.tar.gz")) | .browser_download_url
+      - type: file
+        path: io.github.submersion.desktop
+      - type: file
+        path: io.github.submersion.metainfo.xml
+      - type: file
+        path: icons/io.github.submersion-128.png
+      - type: file
+        path: icons/io.github.submersion-512.png
+      - type: file
+        url: https://raw.githubusercontent.com/submersion-app/submersion/fe171bab2cb22f92eefb39975e5558f087831ade/LICENSE
+        sha256: 7d2c809f770ef01e920d9bace4d0c99ccbc7eb983baa46a9394406a66455b732
+        dest-filename: COPYING

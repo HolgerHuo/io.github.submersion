@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.submersion</id>
+  <name>Submersion</name>
+  <summary>Log scuba dives and explore dive profiles</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="app.submersion">
+    <name>Submersion Contributors</name>
+  </developer>
+  <description>
+    <p>
+      Submersion is a dive logbook for scuba divers. Record your dives,
+      download logs from supported dive computers, and explore dive profiles
+      with decompression and gas analytics.
+    </p>
+    <p>
+      Organize dive sites, equipment, photos, and marine-life sightings.
+      Plan dives, review statistics, and synchronize your logbook with
+      supported cloud storage services.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.submersion.desktop</launchable>
+  <url type="homepage">https://submersion.app</url>
+  <url type="bugtracker">https://github.com/submersion-app/submersion/issues</url>
+  <url type="vcs-browser">https://github.com/submersion-app/submersion</url>
+  <url type="help">https://submersion.app/guide/</url>
+  <categories>
+    <category>Science</category>
+    <category>Sports</category>
+  </categories>
+  <content_rating type="oars-1.1"/>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/submersion-app/submersion/fe171bab2cb22f92eefb39975e5558f087831ade/docs/assets/screenshots/readme/01-dive-logging.jpg</image>
+      <caption>Dive logbook and dive details</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/submersion-app/submersion/fe171bab2cb22f92eefb39975e5558f087831ade/docs/assets/screenshots/readme/02-profile-deco.jpg</image>
+      <caption>Dive profiles and decompression analytics</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/submersion-app/submersion/fe171bab2cb22f92eefb39975e5558f087831ade/docs/assets/screenshots/readme/04-sites-maps.jpg</image>
+      <caption>Dive sites and maps</caption>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="1.8.1.8710" date="2026-10-04">
+      <url>https://github.com/submersion-app/submersion/releases/tag/v1.8.1.8710</url>
+    </release>
+  </releases>
+</component>

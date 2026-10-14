@@ -1,0 +1,26 @@
+name: Build and release Flatpak
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: Submersion-${{ github.ref_name }}-x86_64.flatpak
+          manifest-path: io.github.submersion.yml
+          upload-artifact: false
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: Submersion-${{ github.ref_name }}-x86_64.flatpak
+          fail_on_unmatched_files: true
